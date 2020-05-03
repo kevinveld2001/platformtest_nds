@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        
+        {
+            "name": "nds",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/devkitPro/libnds/include/**"
+            ]
+           
+    
+        }
+        
+    ],
+    
+    "version": 4
+}
