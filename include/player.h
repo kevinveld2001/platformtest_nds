@@ -1,7 +1,7 @@
 struct Player
 {
-    int x;
-    int y;
+    float x;
+    float y;
     float speed_max;
     float speed_max_run;
     float speed_now;

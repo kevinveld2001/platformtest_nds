@@ -4,8 +4,8 @@
 
 struct Player
 {
-    int x;
-    int y;
+    float x;
+    float y;
     float speed_max;
     float speed_max_run;
     float speed_now;
@@ -24,7 +24,7 @@ struct Player
 struct Player player = {
     .x = 10,
     .y = 50,
-    .speed_max = 1.8,
+    .speed_max = 1.4,
     .speed_max_run = 2.4,
     .speed_now = 0,
     .jump = 3,
@@ -59,9 +59,9 @@ void playerMoveLeft(){
 
 void playerMoveStop(){
    
-    if(player.speed_now <=0.2){
+    if(player.speed_now < -0.2){
         player.speed_now += 0.2;
-    }else if(player.speed_now >=0.2){
+    }else if(player.speed_now >0.2){
         player.speed_now -= 0.2;
     }else{
         player.speed_now = 0;

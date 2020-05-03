@@ -35,7 +35,11 @@ int main(void) {
 	glBegin2D();
 		
 		scanKeys();
-		iprintf("\x1b[8;0H test\n");	
+
+		
+		
+		
+		
 		
 
 		//draw player
@@ -67,6 +71,9 @@ int main(void) {
 
 		playerMoveUpdate();
 
+		int testSpeed1 =player.speed_now;
+		int testSpeed2 = (player.speed_now - testSpeed1) * 100;
+		iprintf("\x1b[8;0H %i,%i   \n",testSpeed1,testSpeed2 );	
 	glEnd2D();
    
     glFlush(0);  
