@@ -35,9 +35,6 @@ int main(void) {
 	glBegin2D();
 		
 		scanKeys();
-		
-
-
 		iprintf("\x1b[8;0H test\n");	
 		
 		glBoxFilled( 10, 10,
