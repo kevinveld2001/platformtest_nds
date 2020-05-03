@@ -7,7 +7,7 @@
 
 #include <nds.h>
 #include <gl2d.h>
-
+#include <player.h>
 
 volatile int frame = 0;
 
@@ -28,7 +28,7 @@ int main(void) {
 
 	consoleDemoInit();
 
-
+	
 
 
 	while(1) {
@@ -37,11 +37,35 @@ int main(void) {
 		scanKeys();
 		iprintf("\x1b[8;0H test\n");	
 		
-		glBoxFilled( 10, 10,
-					20, 20,
-                     RGB15(252, 186, 3)
-                    );
 
+		//draw player
+		glBoxFilled( player.x, player.y,
+					 player.x + player.sizex, player.y + player.sizey,
+                     RGB15(player.coler_r, player.coler_g, player.coler_b)
+                    );
+		
+
+
+
+
+		//keypresses
+		if(keysHeld() & KEY_RIGHT){
+			playerMoveRight();
+		}
+		if(keysHeld() & KEY_LEFT){
+			playerMoveLeft();
+		}
+
+
+		//detect run
+		if(keysDown() & KEY_B){
+			player.run = 1;
+		}else if(keysUp() & KEY_B){
+			player.run = 0;
+		}
+
+
+		playerMoveUpdate();
 
 	glEnd2D();
    
