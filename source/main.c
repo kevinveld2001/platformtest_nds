@@ -62,10 +62,15 @@ int main(void) {
 
 
 		//detect run
-		if(keysDown() & KEY_B){
+		if(keysDown() & KEY_Y){
 			player.run = 1;
-		}else if(keysUp() & KEY_B){
+		}else if(keysUp() & KEY_Y){
 			player.run = 0;
+		}
+
+		//jump
+		if(keysHeld() & KEY_B){
+			playerJump();
 		}
 
 

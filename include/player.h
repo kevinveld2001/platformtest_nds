@@ -5,7 +5,8 @@ struct Player
     float speed_max;
     float speed_max_run;
     float speed_now;
-    int jump;
+    float jump;
+    float jump_speed;
     int lifes;
     int sizex;
     int sizey;
@@ -16,9 +17,12 @@ struct Player
     int run;
 };
 
+
 struct Player player;
 
 void playerMoveRight();
 void playerMoveLeft();
 
 void playerMoveUpdate();
+
+void playerJump();

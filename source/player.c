@@ -9,7 +9,8 @@ struct Player
     float speed_max;
     float speed_max_run;
     float speed_now;
-    int jump;
+    float jump;
+    float jump_speed;
     int lifes;
     int sizex;
     int sizey;
@@ -22,12 +23,13 @@ struct Player
 
 
 struct Player player = {
-    .x = 10,
-    .y = 50,
-    .speed_max = 1.4,
-    .speed_max_run = 2.4,
+    .x = 20,
+    .y = 20,
+    .speed_max = 1,
+    .speed_max_run = 2,
     .speed_now = 0,
-    .jump = 3,
+    .jump = 1,
+    .jump_speed = 0,
     .lifes = 3,
     .sizex = 10,
     .sizey = 10,
@@ -43,7 +45,7 @@ void playerMoveRight(){
     
     if((player.run == 0 &&player.speed_now < player.speed_max) || 
     (player.run == 1  && player.speed_now < player.speed_max_run)){
-        player.speed_now += 0.2;
+        player.speed_now += 0.1;
         player.playerMoved = 1;
     }
 }
@@ -52,17 +54,17 @@ void playerMoveLeft(){
     
     if((player.run == 0 &&player.speed_now > -player.speed_max)||
     (player.run == 1  && player.speed_now > -player.speed_max_run)){
-        player.speed_now -= 0.2;
+        player.speed_now -= 0.1;
         player.playerMoved = 1;
     }
 }
 
 void playerMoveStop(){
    
-    if(player.speed_now < -0.2){
-        player.speed_now += 0.2;
-    }else if(player.speed_now >0.2){
-        player.speed_now -= 0.2;
+    if(player.speed_now < -0.1){
+        player.speed_now += 0.1;
+    }else if(player.speed_now >0.1){
+        player.speed_now -= 0.1;
     }else{
         player.speed_now = 0;
     }
@@ -72,10 +74,47 @@ void playerMoveStop(){
 void playerMoveUpdate(){
     player.x += player.speed_now;
 
+
+    if((player.y + player.jump_speed) > 150){
+        player.y = 150;
+        player.jump_speed = 0;
+        player.jump = 2;
+    }else{
+        player.y += player.jump_speed;
+    }
+
+    
+
     if(player.playerMoved == 0){
         playerMoveStop();
     }else{
         player.playerMoved = 0;
     }
 
+
+    //grafity
+    if(player.y < 150){
+        player.jump_speed += 0.35;
+    }
+
+}
+
+
+void playerJump(){
+
+player.jump_speed -= player.jump;
+if(player.jump > 0 && player.speed_now <= 1.5 && player.speed_now >= 0){
+    player.jump -= 0.3;
+}else if (player.jump > 0 && player.speed_now > 1.5){
+    player.jump -= 0.25;
+}else if(player.jump > 0 && player.speed_now >= -1.5 && player.speed_now <= 0){
+    player.jump -= 0.3;
+}else if (player.jump > 0 && player.speed_now < -1.5){
+    player.jump -= 0.25;
+}
+
+
+if(player.jump < 0){
+    player.jump = 0;
+}
 }
