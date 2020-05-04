@@ -66,6 +66,12 @@ int main(void) {
                      RGB15(0 ,240, 0)
                     );
 				break;
+			case 2:
+				glBoxFilled( (terraindrawx*16)-16 - camx, terraindrawy*16 - camy,
+					 (terraindrawx*16+16)-16 - camx , terraindrawy*16 + 16- camy,
+                     RGB15(155 ,0, 0)
+                    );
+				break;
 			
 			default:
 				break;
@@ -105,11 +111,18 @@ int main(void) {
 			playerJump();
 		}
 
+		//restart game 
+
+		if(keysDown() & KEY_START){
+			player.x = 20;
+			player.y = 20;
+		}
+
 
 		playerMoveUpdate();
 
-		int testSpeed1 =player.speed_now;
-		int testSpeed2 = (player.speed_now - testSpeed1) * 100;
+		int testSpeed1 =player.jump_speed;
+		int testSpeed2 = (player.jump_speed - testSpeed1) * 100;
 		iprintf("\x1b[8;0H %i,%i   \n",testSpeed1,testSpeed2 );	
 	glEnd2D();
    

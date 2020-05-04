@@ -44,11 +44,13 @@ int collidables[1] = {1};
 
 int iscolliding(int x, int y, int sizex, int sizey){
 
-
+        
         int terraindrawx =0;
 		int terraindrawy =0;
 		for(int i =0;i< 5000; i++){
-
+            if(map[i] == 2){
+                map[i] = 1; 
+            }
 			if(terraindrawx == map_width){
 				terraindrawy++;
 				terraindrawx = 0;
@@ -66,6 +68,7 @@ int iscolliding(int x, int y, int sizex, int sizey){
                         if((x >= (terraindrawx*16)-16 && x <= terraindrawx*16 + 16-16)|| // 
                         ((x+sizex >= (terraindrawx*16-16) && x+sizex <= terraindrawx*16 + 16-16))  
                         ){
+                            map[i] = 2;
                             return 1;
                         }
                         }
@@ -120,12 +123,12 @@ void playerMoveStop(){
 
 
 void playerMoveUpdate(){
-    if(player.speed_now >0){
-        if(iscolliding( player.x + 2,player.y,player.sizex,player.sizey) == 1){
+    if(player.speed_now >0.1){
+        if(iscolliding( player.x + 6,player.y,player.sizex-5,player.sizey) == 1){
             player.speed_now = 0;
         }
-    }else if(player.speed_now <0){
-        if(iscolliding( player.x - 2,player.y,player.sizex,player.sizey) == 1 ){
+    }else if(player.speed_now <0.1){
+        if(iscolliding( player.x - 1,player.y,player.sizex-5,player.sizey) == 1 ){
             player.speed_now = 0;
         }
     }
@@ -138,7 +141,7 @@ void playerMoveUpdate(){
         
         player.jump_speed = 0;
         player.jump = 1.8;
-    }else if(iscolliding( player.x -2,player.y + player.jump_speed,player.sizex-4,player.sizey-8) == 1){
+    }else if(iscolliding( player.x +2,player.y + player.jump_speed,player.sizex-6,player.sizey-8) == 1){
         player.jump_speed = 0;
     }else{
         player.y += player.jump_speed;
@@ -159,9 +162,9 @@ void playerMoveUpdate(){
 
 
     //grafity
-    if(player.y < 150){
-        player.jump_speed += 0.35;
-    }
+        if(player.jump_speed < 5)
+            player.jump_speed += 0.30;
+    
 
 }
 
