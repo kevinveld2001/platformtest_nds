@@ -59,7 +59,8 @@ main.o: C:/nds/platformtest/source/main.c \
  C:/devkitPro/libnds/include/nds/arm9/video.h \
  C:/devkitPro/libnds/include/nds/arm9/videoGL.h \
  C:/devkitPro/libnds/include/nds/arm9/nand.h \
- C:/devkitPro/libnds/include/gl2d.h C:/nds/platformtest/include/player.h
+ C:/devkitPro/libnds/include/gl2d.h C:/nds/platformtest/include/player.h \
+ C:/nds/platformtest/include/terrain.h
 
 C:/devkitPro/libnds/include/nds.h:
 
@@ -184,3 +185,5 @@ C:/devkitPro/libnds/include/nds/arm9/nand.h:
 C:/devkitPro/libnds/include/gl2d.h:
 
 C:/nds/platformtest/include/player.h:
+
+C:/nds/platformtest/include/terrain.h:

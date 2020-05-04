@@ -8,6 +8,8 @@
 #include <nds.h>
 #include <gl2d.h>
 #include <player.h>
+#include <terrain.h>
+
 
 volatile int frame = 0;
 
@@ -36,15 +38,45 @@ int main(void) {
 		
 		scanKeys();
 
+		//camera
+		int camx = player.x - SCREEN_WIDTH/2;
+		int camy = player.y - SCREEN_HEIGHT/2;
+
+
 		
-		
-		
+		//draw terrain
+		int terraindrawx =0;
+		int terraindrawy =0;
+		for(int i =0;i< 5000; i++){
+
+			
+
+
+
+			if(terraindrawx == map_width){
+				terraindrawy++;
+				terraindrawx = 0;
+			}
+			terraindrawx++;
+			switch (map[i])
+			{
+			case 1:
+				glBoxFilled( (terraindrawx*16)-16 - camx, terraindrawy*16 - camy,
+					 (terraindrawx*16+16)-16 - camx , terraindrawy*16 + 16- camy,
+                     RGB15(0 ,240, 0)
+                    );
+				break;
+			
+			default:
+				break;
+			}
+		}
 		
 		
 
 		//draw player
-		glBoxFilled( player.x, player.y,
-					 player.x + player.sizex, player.y + player.sizey,
+		glBoxFilled( player.x- camx, player.y- camy,
+					 player.x + player.sizex- camx, player.y + player.sizey- camy,
                      RGB15(player.coler_r, player.coler_g, player.coler_b)
                     );
 		

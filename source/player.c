@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <terrain.h>
 
 
 struct Player
@@ -40,23 +40,71 @@ struct Player player = {
     .run = 0
 };
 
+int collidables[1] = {1};
+
+int iscolliding(int x, int y, int sizex, int sizey){
+
+
+        int terraindrawx =0;
+		int terraindrawy =0;
+		for(int i =0;i< 5000; i++){
+
+			if(terraindrawx == map_width){
+				terraindrawy++;
+				terraindrawx = 0;
+			}
+			terraindrawx++;
+			
+				// (terraindrawx*16)-16, terraindrawy*16,
+				// (terraindrawx*16+16)-16 , terraindrawy*16 + 16,
+                   for(int a =0;a<1; a++){ 
+                        if(map[i] == collidables[a]){
+
+                        if((y >= (terraindrawy*16) && y <= terraindrawy*16 + 16)|| 
+                        ((y+sizey >= (terraindrawy*16) && y+sizey <= terraindrawy*16 + 16))  
+                        ){
+                        if((x >= (terraindrawx*16)-16 && x <= terraindrawx*16 + 16-16)|| // 
+                        ((x+sizex >= (terraindrawx*16-16) && x+sizex <= terraindrawx*16 + 16-16))  
+                        ){
+                            return 1;
+                        }
+                        }
+
+                        }
+                   }	
+		}
+
+
+return 0;
+}
+
+
+
+
+
+
 
 void playerMoveRight(){
     
-    if((player.run == 0 &&player.speed_now < player.speed_max) || 
-    (player.run == 1  && player.speed_now < player.speed_max_run)){
-        player.speed_now += 0.1;
-        player.playerMoved = 1;
-    }
+        if((player.run == 0 &&player.speed_now < player.speed_max) || 
+        (player.run == 1  && player.speed_now < player.speed_max_run)){
+            player.speed_now += 0.1;
+            player.playerMoved = 1;
+        }
+    
+    
 }
 
 void playerMoveLeft(){
+   
+        if((player.run == 0 &&player.speed_now > -player.speed_max)||
+        (player.run == 1  && player.speed_now > -player.speed_max_run)){
+            player.speed_now -= 0.1;
+            player.playerMoved = 1;
+        }
     
-    if((player.run == 0 &&player.speed_now > -player.speed_max)||
-    (player.run == 1  && player.speed_now > -player.speed_max_run)){
-        player.speed_now -= 0.1;
-        player.playerMoved = 1;
-    }
+
+    
 }
 
 void playerMoveStop(){
@@ -72,13 +120,26 @@ void playerMoveStop(){
 
 
 void playerMoveUpdate(){
+    if(player.speed_now >0){
+        if(iscolliding( player.x + 2,player.y,player.sizex,player.sizey) == 1){
+            player.speed_now = 0;
+        }
+    }else if(player.speed_now <0){
+        if(iscolliding( player.x - 2,player.y,player.sizex,player.sizey) == 1 ){
+            player.speed_now = 0;
+        }
+    }
+
+
     player.x += player.speed_now;
 
 
-    if((player.y + player.jump_speed) > 150){
-        player.y = 150;
+    if(iscolliding( player.x +2,player.y+8 + player.jump_speed,player.sizex-4,player.sizey-8) == 1){
+        
         player.jump_speed = 0;
         player.jump = 1.8;
+    }else if(iscolliding( player.x -2,player.y + player.jump_speed,player.sizex-4,player.sizey-8) == 1){
+        player.jump_speed = 0;
     }else{
         player.y += player.jump_speed;
 
@@ -127,3 +188,9 @@ void playerJump(){
     
 
 }
+
+
+
+
+
+
