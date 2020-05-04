@@ -28,7 +28,7 @@ struct Player player = {
     .speed_max = 1,
     .speed_max_run = 2,
     .speed_now = 0,
-    .jump = 1,
+    .jump = 1.8,
     .jump_speed = 0,
     .lifes = 3,
     .sizex = 10,
@@ -78,9 +78,14 @@ void playerMoveUpdate(){
     if((player.y + player.jump_speed) > 150){
         player.y = 150;
         player.jump_speed = 0;
-        player.jump = 2;
+        player.jump = 1.8;
     }else{
         player.y += player.jump_speed;
+
+        //extra speed
+        if(player.jump_speed !=0){
+            player.x += player.speed_now/2;
+        }
     }
 
     
@@ -102,19 +107,23 @@ void playerMoveUpdate(){
 
 void playerJump(){
 
-player.jump_speed -= player.jump;
-if(player.jump > 0 && player.speed_now <= 1.5 && player.speed_now >= 0){
-    player.jump -= 0.3;
-}else if (player.jump > 0 && player.speed_now > 1.5){
-    player.jump -= 0.25;
-}else if(player.jump > 0 && player.speed_now >= -1.5 && player.speed_now <= 0){
-    player.jump -= 0.3;
-}else if (player.jump > 0 && player.speed_now < -1.5){
-    player.jump -= 0.25;
-}
 
 
-if(player.jump < 0){
-    player.jump = 0;
-}
+    player.jump_speed -= player.jump;
+    if(player.jump > 0 && player.speed_now <= 1.5 && player.speed_now >= 0){
+        player.jump -= 0.3;
+    }else if (player.jump > 0 && player.speed_now > 1.5){
+        player.jump -= 0.25;
+    }else if(player.jump > 0 && player.speed_now >= -1.5 && player.speed_now <= 0){
+        player.jump -= 0.3;
+    }else if (player.jump > 0 && player.speed_now < -1.5){
+        player.jump -= 0.25;
+    }
+
+
+    if(player.jump < 0){
+        player.jump = 0;
+    }
+    
+
 }
