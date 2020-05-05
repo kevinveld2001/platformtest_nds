@@ -114,16 +114,34 @@ int main(void) {
 		//restart game 
 
 		if(keysDown() & KEY_START){
-			player.x = 20;
-			player.y = 20;
+			player.x = 0;
+			player.y = 1;
+		}
+		if(keysHeld() & KEY_START){
+			
+			player.y = 1;
 		}
 
 
 		playerMoveUpdate();
+		int blocklevel = ((player.y)/16);
+		blocklevel = blocklevel*map_width;
+		blocklevel = blocklevel+((player.x-16)/16);
 
-		int testSpeed1 =player.jump_speed;
-		int testSpeed2 = (player.jump_speed - testSpeed1) * 100;
-		iprintf("\x1b[8;0H %i,%i   \n",testSpeed1,testSpeed2 );	
+		//  blocklevel = (((player.y)/16) *map_width)+((player.x-16)/16)-32;
+		
+		iprintf("\x1b[8;0H block:%i    \n", blocklevel);
+		int me = blocklevel  +1;
+            int me4 = me -1  ;
+            int me5 = me+1  ;
+            int me2 = me - map_width  ;
+            int me1 = me2 -1  ;
+            int me3 = me2 +1  ;
+            int me7 = me +map_width  ;
+            int me6 = me7 -1  ;
+            int me8 = me7 +1  ;
+		iprintf("\x1b[9;0H %i  ,%i  ,%i  \n %i  ,%i  ,%i  \n %i  ,%i  ,%i", map[me1],map[me2],map[me3],map[me4],map[me],map[me5],map[me6],map[me7],map[me8]);
+
 	glEnd2D();
    
     glFlush(0);  

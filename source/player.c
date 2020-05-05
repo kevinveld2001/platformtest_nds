@@ -40,27 +40,51 @@ struct Player player = {
     .run = 0
 };
 
-int collidables[1] = {1};
+int collidables[2] = {1,2};
 
 int iscolliding(int x, int y, int sizex, int sizey){
 
-        
+        int blocklevel = ((player.y)/16);
+		blocklevel = blocklevel*map_width;
+		blocklevel = blocklevel+((player.x-16)/16);
+
+            int me = blocklevel +1;
+            int me4 = me -1;
+            int me5 = me+1;
+            int me2 = me - map_width;
+            int me1 = me2 -1;
+            int me3 = me2 +1;
+            int me7 = me +map_width;
+            int me6 = me7 -1;
+            int me8 = me7 +1;
         int terraindrawx =0;
 		int terraindrawy =0;
 		for(int i =0;i< 5000; i++){
-            if(map[i] == 2){
-                map[i] = 1; 
-            }
+            
 			if(terraindrawx == map_width){
 				terraindrawy++;
 				terraindrawx = 0;
 			}
 			terraindrawx++;
 			
-				// (terraindrawx*16)-16, terraindrawy*16,
-				// (terraindrawx*16+16)-16 , terraindrawy*16 + 16,
-                   for(int a =0;a<1; a++){ 
-                        if(map[i] == collidables[a]){
+
+            //limmits the collision detection to only check the blocks surrounding the player
+        
+            if(i == me ||
+            i== me4||
+            i== me5||
+            i== me2||
+            i== me1||
+            i== me3||
+            i== me7||
+            i== me6||
+            i== me8
+             ){
+
+
+				//checks if a block is in a piece of terrain
+                   for(int a =0;a<2; a++){ //length of collidables list <-------
+                        if(map[i] == collidables[a]){ //check if it is a sollid block, so air(0) is not so it skips it
 
                         if((y >= (terraindrawy*16) && y <= terraindrawy*16 + 16)|| 
                         ((y+sizey >= (terraindrawy*16) && y+sizey <= terraindrawy*16 + 16))  
@@ -68,13 +92,15 @@ int iscolliding(int x, int y, int sizex, int sizey){
                         if((x >= (terraindrawx*16)-16 && x <= terraindrawx*16 + 16-16)|| // 
                         ((x+sizex >= (terraindrawx*16-16) && x+sizex <= terraindrawx*16 + 16-16))  
                         ){
-                            map[i] = 2;
+                            
                             return 1;
                         }
                         }
 
                         }
                    }	
+
+             }
 		}
 
 
