@@ -43,6 +43,13 @@ int main(void) {
 		int camy = player.y - SCREEN_HEIGHT/2;
 
 
+		//draw sky
+		//0, 238, 255
+		glBoxFilled( 0, 0,
+					 SCREEN_WIDTH, SCREEN_HEIGHT,
+                     RGB15(148, 248, 255)
+                    );
+
 		
 		//draw terrain
 		int terraindrawx =0;
@@ -69,7 +76,7 @@ int main(void) {
 			case 2:
 				glBoxFilled( (terraindrawx*16)-16 - camx, terraindrawy*16 - camy,
 					 (terraindrawx*16+16)-16 - camx , terraindrawy*16 + 16- camy,
-                     RGB15(155 ,0, 0)
+                     RGB15(137, 141, 143)
                     );
 				break;
 			
@@ -114,7 +121,7 @@ int main(void) {
 		//restart game 
 
 		if(keysDown() & KEY_START){
-			player.x = 0;
+			// player.x = 0;
 			player.y = 1;
 		}
 		if(keysHeld() & KEY_START){
@@ -129,7 +136,7 @@ int main(void) {
 		blocklevel = blocklevel+((player.x-16)/16);
 
 		//  blocklevel = (((player.y)/16) *map_width)+((player.x-16)/16)-32;
-		
+		iprintf("\x1b[8;0H                                                                                                                                                                                                                        ");
 		iprintf("\x1b[8;0H block:%i    \n", blocklevel);
 		int me = blocklevel  +1;
             int me4 = me -1  ;

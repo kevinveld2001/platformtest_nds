@@ -43,48 +43,40 @@ struct Player player = {
 int collidables[2] = {1,2};
 
 int iscolliding(int x, int y, int sizex, int sizey){
+        int scanList[9];
 
-        int blocklevel = ((player.y)/16);
+        int blocklevel = ((player.y+5)/16);
 		blocklevel = blocklevel*map_width;
-		blocklevel = blocklevel+((player.x-16)/16);
+		blocklevel = blocklevel+((player.x-11)/16);
 
-            int me = blocklevel +1;
-            int me4 = me -1;
-            int me5 = me+1;
-            int me2 = me - map_width;
-            int me1 = me2 -1;
-            int me3 = me2 +1;
-            int me7 = me +map_width;
-            int me6 = me7 -1;
-            int me8 = me7 +1;
+            scanList[5] = blocklevel +1;
+            scanList[3] = scanList[5] -1;
+            scanList[4] = scanList[5]+1;
+            scanList[1] = scanList[5] - map_width;
+            scanList[0] = scanList[1] -1;
+            scanList[2] = scanList[1] +1;
+            scanList[7] = scanList[5] +map_width;
+            scanList[6] = scanList[7] -1;
+           scanList[8] = scanList[7] +1;
+
+
         int terraindrawx =0;
 		int terraindrawy =0;
-		for(int i =0;i< 5000; i++){
-            
-			if(terraindrawx == map_width){
-				terraindrawy++;
-				terraindrawx = 0;
-			}
-			terraindrawx++;
-			
+		for(int i =0;i< 8; i++){
 
-            //limmits the collision detection to only check the blocks surrounding the player
+            
+			
+			
+        terraindrawy = scanList[i] / map_width;
+        terraindrawx = (scanList[i] % map_width)+1;
+           
         
-            if(i == me ||
-            i== me4||
-            i== me5||
-            i== me2||
-            i== me1||
-            i== me3||
-            i== me7||
-            i== me6||
-            i== me8
-             ){
+        
 
 
 				//checks if a block is in a piece of terrain
                    for(int a =0;a<2; a++){ //length of collidables list <-------
-                        if(map[i] == collidables[a]){ //check if it is a sollid block, so air(0) is not so it skips it
+                        if(map[scanList[i]] == collidables[a]){ //check if it is a sollid block, so air(0) is not so it skips it
 
                         if((y >= (terraindrawy*16) && y <= terraindrawy*16 + 16)|| 
                         ((y+sizey >= (terraindrawy*16) && y+sizey <= terraindrawy*16 + 16))  
@@ -100,7 +92,7 @@ int iscolliding(int x, int y, int sizex, int sizey){
                         }
                    }	
 
-             }
+             
 		}
 
 
