@@ -40,14 +40,14 @@ struct Player player = {
     .run = 0
 };
 
-int collidables[2] = {1,2};
+int collidables[3] = {1,2,3};
 
-int iscolliding(int x, int y, int sizex, int sizey){
+int iscolliding(int x, int y, int sizex, int sizey, int gravitycheck){
         int scanList[9];
 
         int blocklevel = ((player.y+5)/16);
 		blocklevel = blocklevel*map_width;
-		blocklevel = blocklevel+((player.x-11)/16);
+		blocklevel = blocklevel+((player.x-8)/16);
 
             scanList[5] = blocklevel +1;
             scanList[3] = scanList[5] -1;
@@ -75,7 +75,11 @@ int iscolliding(int x, int y, int sizex, int sizey){
 
 
 				//checks if a block is in a piece of terrain
-                   for(int a =0;a<2; a++){ //length of collidables list <-------
+                   for(int a =0;a<3; a++){ //length of collidables list <-------
+
+                        if(map[scanList[i]] == collidables[a]&& collidables[a]==3&& gravitycheck == 0){
+                            break;
+                        }
                         if(map[scanList[i]] == collidables[a]){ //check if it is a sollid block, so air(0) is not so it skips it
 
                         if((y >= (terraindrawy*16) && y <= terraindrawy*16 + 16)|| 
@@ -142,11 +146,11 @@ void playerMoveStop(){
 
 void playerMoveUpdate(){
     if(player.speed_now >0.1){
-        if(iscolliding( player.x + 6,player.y,player.sizex-5,player.sizey) == 1){
+        if(iscolliding( player.x + 6,player.y,player.sizex-4,player.sizey,0) == 1){
             player.speed_now = 0;
         }
     }else if(player.speed_now <0.1){
-        if(iscolliding( player.x - 1,player.y,player.sizex-5,player.sizey) == 1 ){
+        if(iscolliding( player.x - 1,player.y,player.sizex-4,player.sizey,0) == 1 ){
             player.speed_now = 0;
         }
     }
@@ -155,11 +159,11 @@ void playerMoveUpdate(){
     player.x += player.speed_now;
 
 
-    if(iscolliding( player.x +2,player.y+8 + player.jump_speed,player.sizex-4,player.sizey-8) == 1){
+    if(iscolliding( player.x +1,player.y+8 + player.jump_speed,player.sizex-2,player.sizey-8,player.jump_speed<0.3?0:1) == 1){
         
         player.jump_speed = 0;
         player.jump = 1.8;
-    }else if(iscolliding( player.x +2,player.y + player.jump_speed,player.sizex-6,player.sizey-8) == 1){
+    }else if(iscolliding( player.x +1,player.y + player.jump_speed,player.sizex-2,player.sizey-8,0) == 1){
         player.jump_speed = 0;
     }else{
         player.y += player.jump_speed;

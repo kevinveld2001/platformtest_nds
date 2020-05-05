@@ -79,6 +79,12 @@ int main(void) {
                      RGB15(137, 141, 143)
                     );
 				break;
+			case 3:
+				glBoxFilled( (terraindrawx*16)-16 - camx, terraindrawy*16 - camy,
+						(terraindrawx*16+16)-16 - camx , terraindrawy*16 + 16- camy,
+						RGB15(255, 255, 255)
+					);
+				break;
 			
 			default:
 				break;
