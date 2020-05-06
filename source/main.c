@@ -10,6 +10,8 @@
 #include <player.h>
 #include <terrain.h>
 #include <stdbool.h>
+#include <entity.h>
+
 
 volatile int frame = 0;
 
@@ -31,7 +33,12 @@ int main(void) {
 	consoleDemoInit();
 
 	resetplayer(false);
-
+touchPosition touch;
+	float totchx=0;
+	float totchy=0;
+	float newtotchx=0;
+	float newtotchy=0;
+	int entityID=0;
 
 	while(1) {
 	glBegin2D();
@@ -106,6 +113,24 @@ int main(void) {
 		}
 		
 		
+	//draw entity
+		for(int i =0;i<50;i++){
+			switch (entityList[i].type)
+			{
+			case 0:
+				glBoxFilled( entityList[i].x - camx, entityList[i].y - camy,
+					 (entityList[i].x + entityList[i].sizex) - camx , (entityList[i].y + entityList[i].sizey)- camy,
+                     RGB15(20 ,20, 20)
+                    );
+				break;
+			
+			default:
+				break;
+			}
+		}
+		updateEntity();
+
+
 
 		//draw player
 		glBoxFilled( player.x- camx, player.y- camy,
@@ -168,6 +193,65 @@ int main(void) {
 
 		iprintf("\x1b[13;0H cam:%i : %i    \n", camx,camy);
 		
+
+		//trow touch screen
+
+		if(keysDown() & KEY_TOUCH) {
+			touchRead(&touch);
+			totchx = touch.px;
+			totchy = touch.py;
+			entityID = newEntity();
+		}
+		if(keysHeld() & KEY_TOUCH) {
+			touchRead(&touch);
+			newtotchx = touch.px;
+			newtotchy = touch.py;
+			entityList[entityID].x = player.x+3;
+			entityList[entityID].y = player.y-3;
+		}
+
+		if(keysUp() & KEY_TOUCH) {
+			
+			totchx =  -(( newtotchx - totchx)/20);
+			totchy = -(( newtotchy- totchy)/10);
+			entityList[entityID].speedx = totchx;
+			entityList[entityID].speedy = totchy;
+			
+		}
+
+		//trow right shoulder button
+		if(keysDown() & KEY_R){
+			entityID = newEntity();
+		}
+		if(keysHeld() & KEY_R){
+			entityList[entityID].x = player.x+3;
+			entityList[entityID].y = player.y-3;
+		}
+		if(keysUp() & KEY_R){
+			entityList[entityID].speedx = 5;
+			entityList[entityID].speedy = -2;
+		}
+
+		//trow left shoulder button
+		if(keysDown() & KEY_L){
+			entityID = newEntity();
+		}
+		if(keysHeld() & KEY_L){
+			entityList[entityID].x = player.x+3;
+			entityList[entityID].y = player.y-3;
+		}
+		if(keysUp() & KEY_L){
+			entityList[entityID].speedx = -5;
+			entityList[entityID].speedy = -2;
+		}
+
+
+		
+		
+
+
+
+
 	glEnd2D();
    
     glFlush(0);  
