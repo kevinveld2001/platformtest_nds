@@ -226,12 +226,12 @@ if(player.speed_now >0.0){
        
 
         if(!isDieMiddel){
-            deathanimation--;
-        }
-        if( isDieMiddel){
             deathanimation++;
         }
-        if(deathanimation<=-16){
+        if( isDieMiddel){
+            deathanimation--;
+        }
+        if(deathanimation>=16){
             isDieMiddel=true;
             resetplayer(true);
         }
