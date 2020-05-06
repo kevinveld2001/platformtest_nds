@@ -53,7 +53,7 @@ void updateEntity(){
     }
 }
 
-int collidablesEntity[2] = {1,2};
+int collidablesEntity[3] = {1,2,4};
 int iscollidingEntity(int x, int y, int sizex, int sizey,int i){
         int scanList[9];
 
@@ -87,7 +87,7 @@ int iscollidingEntity(int x, int y, int sizex, int sizey,int i){
 
 
 				//checks if a block is in a piece of terrain
-                   for(int a =0;a<2; a++){ //length of collidables list <-------
+                   for(int a =0;a<3; a++){ //length of collidables list <-------
 
                         
                         if(map[scanList[i]] == collidablesEntity[a]){ //check if it is a sollid block, so air(0) is not so it skips it

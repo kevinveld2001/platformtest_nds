@@ -67,7 +67,7 @@ void playerDie(){
 }
 
 
-int collidables[3] = {1,2,3};
+int collidables[4] = {1,2,3,4};
 
 int iscolliding(int x, int y, int sizex, int sizey, int gravitycheck){
         int scanList[9];
@@ -102,7 +102,7 @@ int iscolliding(int x, int y, int sizex, int sizey, int gravitycheck){
 
 
 				//checks if a block is in a piece of terrain
-                   for(int a =0;a<3; a++){ //length of collidables list <-------
+                   for(int a =0;a<4; a++){ //length of collidables list <-------
 
                         if(map[scanList[i]] == collidables[a]&& collidables[a]==3&& gravitycheck == 0){
                             break;

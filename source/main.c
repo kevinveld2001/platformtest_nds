@@ -1,8 +1,4 @@
 
-//https://github.com/knightfox75/nds_nflib/tree/master/docs
-
-
-
 #include <stdio.h>
 
 #include <nds.h>
@@ -91,7 +87,19 @@ touchPosition touch;
 			case 1:
 				glBoxFilled( (terraindrawx*16)-16 - camx, terraindrawy*16 - camy,
 					 (terraindrawx*16+16)-16 - camx , terraindrawy*16 + 16- camy,
-                     RGB15(0 ,240, 0)
+					 RGB15(16, 12, 2)
+                    
+                    );
+				glBoxFilled( (terraindrawx*16)-17 - camx, terraindrawy*16- 1 - camy,
+					 (terraindrawx*16+16)-25 - camx , terraindrawy*16+4 - camy,
+					  RGB15(0 ,240, 0)
+                    
+                    );
+
+				glBoxFilled( (terraindrawx*16)-7 - camx, terraindrawy*16 - camy,
+					 (terraindrawx*16+16)-15 - camx , terraindrawy*16+6 - camy,
+					  RGB15(0 ,240, 0)
+                    
                     );
 				break;
 			case 2:
@@ -99,11 +107,30 @@ touchPosition touch;
 					 (terraindrawx*16+16)-16 - camx , terraindrawy*16 + 16- camy,
                      RGB15(137, 141, 143)
                     );
+					glBoxFilled( (terraindrawx*16)-12 - camx, terraindrawy*16 +2 - camy,
+					 (terraindrawx*16+16)-28 - camx , terraindrawy*16 + 8- camy,
+                     RGB15(12 ,12, 12)
+                    );
+					glBoxFilled( (terraindrawx*16)-7 - camx, terraindrawy*16 +8 - camy,
+					 (terraindrawx*16+16)-20 - camx , terraindrawy*16 + 14- camy,
+                     RGB15(12 ,12, 12)
+                    );
 				break;
 			case 3:
+			glBoxFilled( (terraindrawx*16)-13 - camx, terraindrawy*16+1 - camy,
+						(terraindrawx*16+16)-10 - camx , terraindrawy*16 + 14- camy,
+						RGB15(29, 29, 31)
+					);
+				glBoxFilled( (terraindrawx*16)-19 - camx, terraindrawy*16 -5 - camy,
+						(terraindrawx*16+16)-12 - camx , terraindrawy*16 + 11- camy,
+						RGB15(31, 31, 31)
+					);
+
+				break;
+			case 4:
 				glBoxFilled( (terraindrawx*16)-16 - camx, terraindrawy*16 - camy,
 						(terraindrawx*16+16)-16 - camx , terraindrawy*16 + 16- camy,
-						RGB15(255, 255, 255)
+						RGB15(16, 12, 2)
 					);
 				break;
 			
@@ -176,23 +203,30 @@ touchPosition touch;
 		blocklevel = blocklevel*map_width;
 		blocklevel = blocklevel+((player.x-16)/16);
 
+
+/////////!!!!!!!!!!!!!!!!!!!!!!!!!!!////////////////
+/////////OLD DEBUG CODE/////////////////////////////
+
 		//  blocklevel = (((player.y)/16) *map_width)+((player.x-16)/16)-32;
-		iprintf("\x1b[8;0H                                                                                                                                                                                                                        ");
-		iprintf("\x1b[8;0H block:%i    \n", blocklevel);
-		int me = blocklevel  +1;
-            int me4 = me -1  ;
-            int me5 = me+1  ;
-            int me2 = me - map_width  ;
-            int me1 = me2 -1  ;
-            int me3 = me2 +1  ;
-            int me7 = me +map_width  ;
-            int me6 = me7 -1  ;
-            int me8 = me7 +1  ;
-		iprintf("\x1b[9;0H %i  ,%i  ,%i  \n %i  ,%i  ,%i  \n %i  ,%i  ,%i", map[me1],map[me2],map[me3],map[me4],map[me],map[me5],map[me6],map[me7],map[me8]);
+		// iprintf("\x1b[8;0H                                                                                                                                                                                                                        ");
+		// iprintf("\x1b[8;0H block:%i    \n", blocklevel);
+		// int me = blocklevel  +1;
+        //     int me4 = me -1  ;
+        //     int me5 = me+1  ;
+        //     int me2 = me - map_width  ;
+        //     int me1 = me2 -1  ;
+        //     int me3 = me2 +1  ;
+        //     int me7 = me +map_width  ;
+        //     int me6 = me7 -1  ;
+        //     int me8 = me7 +1  ;
+		// iprintf("\x1b[9;0H %i  ,%i  ,%i  \n %i  ,%i  ,%i  \n %i  ,%i  ,%i", map[me1],map[me2],map[me3],map[me4],map[me],map[me5],map[me6],map[me7],map[me8]);
+		// iprintf("\x1b[13;0H cam:%i : %i    \n", camx,camy);
+		/////////////!!!!!!!!!!!!!///////////////
+		/////////////END OF OLD DEBUG CODE///////
 
 
-		iprintf("\x1b[13;0H cam:%i : %i    \n", camx,camy);
-		
+
+
 
 		//trow touch screen
 
@@ -229,7 +263,7 @@ touchPosition touch;
 		}
 		if(keysUp() & KEY_R){
 			entityList[entityID].speedx = 5;
-			entityList[entityID].speedy = -2;
+			entityList[entityID].speedy = -1;
 		}
 
 		//trow left shoulder button
@@ -242,7 +276,7 @@ touchPosition touch;
 		}
 		if(keysUp() & KEY_L){
 			entityList[entityID].speedx = -5;
-			entityList[entityID].speedy = -2;
+			entityList[entityID].speedy = -1;
 		}
 
 
