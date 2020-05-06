@@ -7,7 +7,6 @@ struct Player
     float speed_now;
     float jump;
     float jump_speed;
-    int lifes;
     int sizex;
     int sizey;
     int coler_r;
@@ -19,7 +18,7 @@ struct Player
 
 
 struct Player player;
-
+void resetplayer(bool death);
 void playerMoveRight();
 void playerMoveLeft();
 

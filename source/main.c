@@ -9,7 +9,7 @@
 #include <gl2d.h>
 #include <player.h>
 #include <terrain.h>
-
+#include <stdbool.h>
 
 volatile int frame = 0;
 
@@ -30,7 +30,7 @@ int main(void) {
 
 	consoleDemoInit();
 
-	
+	resetplayer(false);
 
 
 	while(1) {
@@ -41,6 +41,20 @@ int main(void) {
 		//camera
 		int camx = player.x - SCREEN_WIDTH/2;
 		int camy = player.y - SCREEN_HEIGHT/2;
+
+		//camera border check
+		if(camx < 0){
+			camx = 0;
+		}
+		if(camy<0){
+			camy = 0;
+		}
+		if(camx+SCREEN_WIDTH > map_width*16){
+			camx = (map_width*16) - SCREEN_WIDTH;
+		}
+		if(camy+SCREEN_HEIGHT > map_height*16){
+			camy = (map_height*16) - SCREEN_HEIGHT;
+		}
 
 
 		//draw sky
@@ -127,13 +141,9 @@ int main(void) {
 		//restart game 
 
 		if(keysDown() & KEY_START){
-			// player.x = 0;
-			player.y = 1;
+			resetplayer(false);
 		}
-		if(keysHeld() & KEY_START){
-			
-			player.y = 1;
-		}
+		
 
 
 		playerMoveUpdate();
@@ -155,6 +165,9 @@ int main(void) {
             int me8 = me7 +1  ;
 		iprintf("\x1b[9;0H %i  ,%i  ,%i  \n %i  ,%i  ,%i  \n %i  ,%i  ,%i", map[me1],map[me2],map[me3],map[me4],map[me],map[me5],map[me6],map[me7],map[me8]);
 
+
+		iprintf("\x1b[13;0H cam:%i : %i    \n", camx,camy);
+		
 	glEnd2D();
    
     glFlush(0);  

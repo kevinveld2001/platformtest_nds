@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <terrain.h>
-
+#include <stdbool.h>
+#include <nds.h>
+#include <gl2d.h>
 
 struct Player
 {
@@ -11,7 +13,6 @@ struct Player
     float speed_now;
     float jump;
     float jump_speed;
-    int lifes;
     int sizex;
     int sizey;
     int coler_r;
@@ -23,14 +24,13 @@ struct Player
 
 
 struct Player player = {
-    .x = 20,
-    .y = 20,
+    .x = 0,
+    .y = 0,
     .speed_max = 1,
     .speed_max_run = 2,
     .speed_now = 0,
     .jump = 1.8,
     .jump_speed = 0,
-    .lifes = 3,
     .sizex = 10,
     .sizey = 10,
     .coler_r = 252,
@@ -40,6 +40,33 @@ struct Player player = {
     .run = 0
 };
 
+void resetplayer(bool death){
+    player.x = playerstartposx;
+    player.y = playerstartposy;
+    player.speed_max = 1;
+    player.speed_max_run = 2;
+    player.speed_now = 0;
+    player.jump = 1.8;
+    player.jump_speed = 0;
+    player.sizex = 10;
+    player.sizey = 10;
+    player.coler_r = 252;
+    player.coler_g = 186;
+    player.coler_b = 3;
+    player.playerMoved = 0;
+    player.run = 0;
+
+}
+
+int deathanimation = 0;
+bool isDieing = false;
+bool isDieMiddel = false;
+
+void playerDie(){
+    isDieing = true;
+}
+
+
 int collidables[3] = {1,2,3};
 
 int iscolliding(int x, int y, int sizex, int sizey, int gravitycheck){
@@ -47,7 +74,7 @@ int iscolliding(int x, int y, int sizex, int sizey, int gravitycheck){
 
         int blocklevel = ((player.y+5)/16);
 		blocklevel = blocklevel*map_width;
-		blocklevel = blocklevel+((player.x-8)/16);
+		blocklevel = blocklevel+((player.x-5)/16);
 
             scanList[5] = blocklevel +1;
             scanList[3] = scanList[5] -1;
@@ -150,7 +177,7 @@ void playerMoveUpdate(){
             player.speed_now = 0;
         }
     }else if(player.speed_now <0.1){
-        if(iscolliding( player.x - 1,player.y,player.sizex-4,player.sizey,0) == 1 ){
+        if(iscolliding( player.x ,player.y,player.sizex-4,player.sizey,0) == 1 ){
             player.speed_now = 0;
         }
     }
@@ -187,6 +214,37 @@ void playerMoveUpdate(){
         if(player.jump_speed < 5)
             player.jump_speed += 0.30;
     
+
+    //death animation
+    if(isDieing){
+       
+
+        if(!isDieMiddel){
+            deathanimation--;
+        }
+        if( isDieMiddel){
+            deathanimation++;
+        }
+        if(deathanimation<=-16){
+            isDieMiddel=true;
+            resetplayer(true);
+        }
+       if(deathanimation == 0){
+            deathanimation = 0;
+            isDieing = false;
+            isDieMiddel = false;
+       }
+       setBrightness(1,deathanimation);
+
+    }
+
+
+//vall to death
+
+if(player.y > map_height*16){
+    playerDie();
+}
+
 
 }
 
