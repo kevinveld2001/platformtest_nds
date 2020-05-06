@@ -172,18 +172,7 @@ void playerMoveStop(){
 
 
 void playerMoveUpdate(){
-    if(player.speed_now >0.1){
-        if(iscolliding( player.x + 6,player.y,player.sizex-4,player.sizey,0) == 1){
-            player.speed_now = 0;
-        }
-    }else if(player.speed_now <0.1){
-        if(iscolliding( player.x ,player.y,player.sizex-4,player.sizey,0) == 1 ){
-            player.speed_now = 0;
-        }
-    }
-
-
-    player.x += player.speed_now;
+    
 
 
     if(iscolliding( player.x +1,player.y+8 + player.jump_speed,player.sizex-2,player.sizey-8,player.jump_speed<0.3?0:1) == 1){
@@ -200,7 +189,24 @@ void playerMoveUpdate(){
             player.x += player.speed_now/2;
         }
     }
+if(player.speed_now >0.0){
+        if(iscolliding( player.x + 8,player.y,player.sizex-4,player.sizey,0) == 1){
+            player.speed_now = 0.0;
+        }
+        if(iscolliding( player.x + 6,player.y,player.sizex-4,player.sizey,0) == 1){
+            player.speed_now = -0.1;
+        }
+    }else if(player.speed_now <0.0){
+        if(iscolliding( player.x -2 ,player.y,player.sizex-4,player.sizey,0) == 1 ){
+            player.speed_now = 0.0;
+        }
+        if(iscolliding( player.x,player.y,player.sizex-4,player.sizey,0) == 1){
+            player.speed_now = 0.1;
+        }
+    }
 
+
+    player.x += player.speed_now;
     
 
     if(player.playerMoved == 0){
