@@ -7,7 +7,7 @@
 #include <terrain.h>
 #include <stdbool.h>
 #include <entity.h>
-
+#include <fireball.h>
 
 volatile int frame = 0;
 
@@ -157,6 +157,14 @@ touchPosition touch;
 		}
 		updateEntity();
 
+		//draw fireball
+		for(int i =0;i<25;i++){
+				glBoxFilled( fireballList[i].x - camx, fireballList[i].y - camy,
+					 (fireballList[i].x + fireballList[i].sizex) - camx , (fireballList[i].y + fireballList[i].sizey)- camy,
+                     RGB15(31 ,0, 0)
+                    );
+		}
+		updateFireball();
 
 
 		//draw player
@@ -279,7 +287,9 @@ touchPosition touch;
 			entityList[entityID].speedy = -1;
 		}
 
-
+		if(keysDown() & KEY_SELECT){
+			newFireball(player.x,player.y);
+		}
 		
 		
 
