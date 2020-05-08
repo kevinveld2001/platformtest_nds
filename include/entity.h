@@ -10,6 +10,6 @@ struct Entity{
 
 
 };
-struct Entity entityList[50];
+struct Entity entityList[25];
 int newEntity();
 void updateEntity();

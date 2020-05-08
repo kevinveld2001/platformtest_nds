@@ -14,13 +14,13 @@ struct Entity{
 
 };
 
-struct Entity entityList[50];
+struct Entity entityList[25];
 int entityCount =0;
 
 
 int newEntity(){
     entityCount++;
-    if(entityCount == 50){
+    if(entityCount == 25){
         entityCount =0;
     }
 
@@ -35,7 +35,7 @@ int newEntity(){
 }
 
 void updateEntity(){
-    for(int i =0;i<50;i++){
+    for(int i =0;i<25;i++){
         if(iscollidingEntity(entityList[i].x,
         entityList[i].y,entityList[i].sizex,entityList[i].sizey,
         i) == 1){

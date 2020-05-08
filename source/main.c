@@ -87,34 +87,34 @@ touchPosition touch;
 			case 1:
 				glBoxFilled( (terraindrawx*16)-16 - camx, terraindrawy*16 - camy,
 					 (terraindrawx*16+16)-16 - camx , terraindrawy*16 + 16- camy,
-					 RGB15(16, 12, 2)
+					 RGB15(0 ,240, 0)//RGB15(16, 12, 2)
                     
                     );
-				glBoxFilled( (terraindrawx*16)-17 - camx, terraindrawy*16- 1 - camy,
-					 (terraindrawx*16+16)-25 - camx , terraindrawy*16+4 - camy,
-					  RGB15(0 ,240, 0)
+				// glBoxFilled( (terraindrawx*16)-17 - camx, terraindrawy*16- 1 - camy,
+				// 	 (terraindrawx*16+16)-25 - camx , terraindrawy*16+4 - camy,
+				// 	  RGB15(0 ,240, 0)
                     
-                    );
+                //     );
 
-				glBoxFilled( (terraindrawx*16)-7 - camx, terraindrawy*16 - camy,
-					 (terraindrawx*16+16)-15 - camx , terraindrawy*16+6 - camy,
-					  RGB15(0 ,240, 0)
+				// glBoxFilled( (terraindrawx*16)-7 - camx, terraindrawy*16 - camy,
+				// 	 (terraindrawx*16+16)-15 - camx , terraindrawy*16+6 - camy,
+				// 	  RGB15(0 ,240, 0)
                     
-                    );
+                //     );
 				break;
 			case 2:
 				glBoxFilled( (terraindrawx*16)-16 - camx, terraindrawy*16 - camy,
 					 (terraindrawx*16+16)-16 - camx , terraindrawy*16 + 16- camy,
                      RGB15(137, 141, 143)
                     );
-					glBoxFilled( (terraindrawx*16)-12 - camx, terraindrawy*16 +2 - camy,
-					 (terraindrawx*16+16)-28 - camx , terraindrawy*16 + 8- camy,
-                     RGB15(12 ,12, 12)
-                    );
-					glBoxFilled( (terraindrawx*16)-7 - camx, terraindrawy*16 +8 - camy,
-					 (terraindrawx*16+16)-20 - camx , terraindrawy*16 + 14- camy,
-                     RGB15(12 ,12, 12)
-                    );
+					// glBoxFilled( (terraindrawx*16)-12 - camx, terraindrawy*16 +2 - camy,
+					//  (terraindrawx*16+16)-28 - camx , terraindrawy*16 + 8- camy,
+                    //  RGB15(12 ,12, 12)
+                    // );
+					// glBoxFilled( (terraindrawx*16)-7 - camx, terraindrawy*16 +8 - camy,
+					//  (terraindrawx*16+16)-20 - camx , terraindrawy*16 + 14- camy,
+                    //  RGB15(12 ,12, 12)
+                    // );
 				break;
 			case 3:
 			glBoxFilled( (terraindrawx*16)-13 - camx, terraindrawy*16+1 - camy,
@@ -141,28 +141,32 @@ touchPosition touch;
 		
 		
 	//draw entity
-		for(int i =0;i<50;i++){
-			switch (entityList[i].type)
-			{
-			case 0:
-				glBoxFilled( entityList[i].x - camx, entityList[i].y - camy,
-					 (entityList[i].x + entityList[i].sizex) - camx , (entityList[i].y + entityList[i].sizey)- camy,
-                     RGB15(20 ,20, 20)
-                    );
-				break;
-			
-			default:
-				break;
+		for(int i =0;i<25;i++){
+			if(entityList[i].x >0 && entityList[i].y >0){
+				switch (entityList[i].type)
+				{
+				case 0:
+					glBoxFilled( entityList[i].x - camx, entityList[i].y - camy,
+						(entityList[i].x + entityList[i].sizex) - camx , (entityList[i].y + entityList[i].sizey)- camy,
+						RGB15(20 ,20, 20)
+						);
+					break;
+				
+				default:
+					break;
+				}
 			}
 		}
 		updateEntity();
 
 		//draw fireball
 		for(int i =0;i<25;i++){
+			if(fireballList[i].x >0 && fireballList[i].y >0){
 				glBoxFilled( fireballList[i].x - camx, fireballList[i].y - camy,
 					 (fireballList[i].x + fireballList[i].sizex) - camx , (fireballList[i].y + fireballList[i].sizey)- camy,
                      RGB15(31 ,0, 0)
                     );
+			}
 		}
 		updateFireball();
 
